@@ -1,0 +1,25 @@
+{
+  "corpus_size": 30000,
+  "portfolio_clients": 32,
+  "global_decay_base_rate": 0.1516,
+  "precision_at_20": 1.0,
+  "precision_at_50": 1.0,
+  "top20_min_impressions_prev_30d": 14789,
+  "top50_min_impressions_prev_30d": 8292,
+  "top50_median_impressions_prev_30d": 17073.5,
+  "archetype_distribution": {
+    "Stable Asset": 25283,
+    "High-Impact Decay": 2170,
+    "Intent / Snippet Drift": 1462,
+    "Low-Volume Decay": 946,
+    "Cold Stale Content": 139
+  },
+  "action_distribution": {
+    "MONITOR_TRAFFIC": 25283,
+    "COMPREHENSIVE_REFRESH": 2170,
+    "INTENT_REALIGN_SEO": 1462,
+    "LIGHT_EDITORIAL_UPDATE": 946,
+    "PRUNE_OR_CONSOLIDATE": 139
+  },
+  "audit_cold_in_top50": 0
+}
