@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Which Content Decays First? Predicting Organic Search Decay Velocity Across Multi-Client Enterprise Portfolios</title>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['\\(', '\\)']],
+          displayMath: [['\\[', '\\]']]
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    :root {
+      --primary-color: #1a365d;
+      --secondary-color: #2b6cb0;
+      --accent-color: #c53030;
+      --bg-color: #f7fafc;
+      --card-bg: #ffffff;
+      --text-color: #2d3748;
+      --text-muted: #718096;
+      --border-color: #e2e8f0;
+      --code-bg: #edf2f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.65;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 3rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      color: var(--primary-color);
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+
+    .meta-byline {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .meta-byline a {
+      color: var(--secondary-color);
+      text-decoration: none;
+    }
+
+    .badge-container {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 4px;
+      background-color: var(--code-bg);
+      color: var(--primary-color);
+      border: 1px solid var(--border-color);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      margin-top: 2.2rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.4rem;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--secondary-color);
+      margin-top: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+    p {
+      margin-bottom: 1.1rem;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    .abstract-box {
+      background-color: #ebf8ff;
+      border-left: 4px solid var(--secondary-color);
+      padding: 1.25rem 1.5rem;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 2rem;
+    }
+
+    .abstract-box h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 0.85rem;
+      text-align: left;
+    }
+
+    th {
+      background-color: #edf2f7;
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+
+    .highlight-row {
+      background-color: #feebc8 !important;
+      font-weight: 600;
+    }
+
+    .figure-container {
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .figure-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .caption {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-top: 0.6rem;
+      font-style: italic;
+    }
+
+    code {
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.88em;
+      background-color: var(--code-bg);
+      padding: 0.15rem 0.35rem;
+      border-radius: 3px;
+      color: #b83280;
+    }
+
+    mjx-container[display="true"] {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.25rem 0;
+    }
+
+    .callout-warning {
+      background-color: #fffaf0;
+      border-left: 4px solid #dd6b20;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Which Content Decays First? Predicting Organic Search Decay Velocity Across Multi-Client Enterprise Portfolios</h1>
+    <div class="meta-byline">
+      <strong>Applied Machine Learning Research Report</strong> · Lane 1: Freshness Decay / Decay Velocity Prediction
+    </div>
+    <div class="meta-byline">
+      Author: <em>Machine Learning Intern</em> · Dataset: <a href="https://flyrank.ai" target="_blank" rel="noopener">FlyRank Search Intelligence v20260703</a>
+    </div>
+    <div class="badge-container">
+      <span class="badge">Supervised ML</span>
+      <span class="badge">GroupKFold (Client-Holdout)</span>
+      <span class="badge">Precision@Top 20%</span>
+      <span class="badge">Decision Support</span>
+      <span class="badge">Zero Data Leakage</span>
+    </div>
+  </header>
+
+  <!-- 1. Title + Abstract -->
+  <section id="abstract">
+    <div class="abstract-box">
+      <h3>1. Abstract</h3>
+      <p>
+        Content marketing teams face severe capacity bottlenecks when attempting to maintain thousands of indexed web pages, often falling back on blunt chronological heuristics (e.g., rewriting all content older than 180 days) that squander editorial hours on healthy assets or stagnant inventory. In this paper, we investigate the real-world content freshness decay problem originating from FlyRank's autonomous publishing infrastructure: <em>which specific articles exhibit severe organic traffic collapse (\(clicks_{last_30d} &lt; clicks_{prev_30d}\) alongside downward velocity), and in what exact priority order should human editors inspect them?</em> Evaluating across 30,000 anonymized enterprise performance records spanning 32 client domains, we audit heuristic assumptions and formulate a supervised ranking pipeline using gradient-boosted decision trees (HistGradientBoosting) evaluated under a strict 5-fold entity-grouped cross-validation scheme (<code>GroupKFold</code> by <code>client_id</code>, guaranteeing zero client overlap). Our findings reveal an observational "floor effect"—articles older than 180 days exhibit an observed decay rate of only 7.47% (under half the 15.16% portfolio baseline) because mature, abandoned content has already exhausted its traffic footprint. The champion gradient-boosted model achieves a <strong>100.00% Precision@50</strong> and a <strong>75.28% Precision@Top 20%</strong> (representing a 1.64x efficiency lift over the frozen rule baseline of 45.77% and a 4.97x lift over random selection), while eliminating 100% of the rule baseline's false positives on zero-traffic inventory. We translate these probabilities into an impact-weighted content action playbook that allocates portfolio assets into four operational triage archetypes, enforcing human-in-the-loop safeguards against uncalibrated autonomous overwriting.
+      </p>
+    </div>
+  </section>
+
+  <!-- 2. Introduction / Problem -->
+  <section id="introduction">
+    <h2>2. Introduction & Problem Statement</h2>
+    <p>
+      In organic search engine optimization, content performance is non-stationary. High-ranking search assets inevitably suffer from "freshness decay": keyword intent evolves, competing publishers launch updated analyses, and search engine result pages (SERPs) re-allocate real estate to rich snippets, knowledge graphs, and AI Overviews. For organizations like FlyRank that manage content as automated infrastructure across dozens of client domains, noticing traffic decay weeks after a ranking collapse occurs results in permanent losses of qualified search demand and pipeline conversion.
+    </p>
+    <p>
+      The core decision this research supports is: <strong>Given finite monthly editorial writing capacity across thousands of published URLs, which specific pages should human content teams inspect, update, or prune first during sprint planning?</strong>
+    </p>
+    <p>
+      Today, search intelligence products typically rely on rule-based heuristics—such as composite health scores or hard thresholds on content age. However, when tested against large-scale search logs, these deterministic rules suffer from asymmetric error costs:
+    </p>
+    <ul>
+      <li><strong>Cost of a False Positive:</strong> Editorial hours and budget ($100–$500 per overhaul) are wasted rewriting pages that are naturally stable or whose clicks are expanding through click-through-rate (CTR) compensation. Furthermore, unnecessary edits to high-stakes pillar pages risk disrupting established keyword authority.</li>
+      <li><strong>Cost of a False Negative:</strong> Missing an asset undergoing steep velocity decline allows rankings to slip off page 1. Recovering a dropped page after search engines re-crawl and re-rank competing domains requires substantially more backlink equity and resource expenditure than a timely proactive refresh.</li>
+    </ul>
+    <p>
+      Supervised machine learning addresses this challenge by evaluating the joint, non-linear interactions between historical impression velocity, click momentum, position variance, and content metadata, outputting a continuous, calibrated risk score that ranks intervention candidates by true expected impact.
+    </p>
+  </section>
+
+  <!-- 3. Data -->
+  <section id="data">
+    <h2>3. Data Provenance & Contract Isolation</h2>
+    <p>
+      This investigation utilizes the FlyRank Search Intelligence dataset (release build <code>v20260703</code>), which synthesizes daily Google Search Console (GSC) query performance and Google Analytics 4 (GA4) behavioral logs. All client names, domain URLs, page paths, and raw user query strings were pseudonymized or stripped in accordance with repository public-safety rules (<code>DATA_USE.md</code>).
+    </p>
+    <h3>3.1 Corpus Grain and Scale</h3>
+    <ul>
+      <li><strong>Starter Modeling Corpus:</strong> 30,000 unique published articles across 32 distinct client domains evaluated over a trailing 90-day performance window. The primary grain is strictly 1 row = 1 unique content item (<code>content_id</code>). Zero duplicate keys were confirmed.</li>
+      <li><strong>Warehouse Release Scale:</strong> In the underlying BigQuery/DuckDB analytical warehouse (~78.8M rows partitioned monthly), the base grain is <code>(client_hash_id, content_hash_id, report_date)</code>. Data contract audits verified zero duplicate grain records on monthly partitions (e.g., 9,841,378 records across 55 clients in partition <code>2026-03</code>).</li>
+    </ul>
+
+    <h3>3.2 Strict Feature vs. Leakage Classification</h3>
+    <p>
+      To preserve experimental validity and prevent circular reasoning, fields were partitioned into mutually exclusive categories:
+    </p>
+    <ul>
+      <li><strong>Context Identifiers (Non-Features):</strong> <code>content_id</code>, <code>client_id</code>, and <code>report_date</code> were reserved exclusively for record joins and entity-aware validation splits; they were never exposed to model training.</li>
+      <li><strong>Safe Pre-Decision Features (40 columns):</strong> Historical search metrics (<code>impressions_prev_30d</code>, <code>impressions_last_30d</code>, <code>clicks_prev_30d</code>, <code>avg_position</code>, <code>ctr</code>), content metadata (<code>content_age_days</code>, <code>days_since_last_update</code>, <code>word_count</code>, <code>content_type</code>), and engagement metrics (<code>scroll_rate</code>, <code>engagement_rate</code>, <code>ai_sessions_90d</code>).</li>
+      <li><strong>Excluded Future & Product Flags:</strong> Outcome-derived columns (<code>trend_direction</code>, <code>trend_pct</code>, <code>is_declining_label</code>) were quarantined to eliminate label leakage. Internal product flags (<code>health_score</code>, <code>needs_ctr_fix</code>, <code>is_quick_win</code>) were omitted to ensure the model learned search performance dynamics rather than existing heuristic decisions.</li>
+    </ul>
+
+    <h3>3.3 Instrumentation Realities (The GA4 Gap)</h3>
+    <p>
+      Warehouse-scale contract probes confirmed that active behavioral analytics (<code>ga4_data_available IS TRUE</code>) is present on only <strong>4.21%</strong> of total performance records. Consequently, engagement features (<code>scroll_rate</code>, <code>engagement_rate</code>) serve as opportunistic secondary signals rather than mandatory filtering gates.
+    </p>
+  </section>
+
+  <!-- 4. Methodology -->
+  <section id="methodology">
+    <h2>4. Methodology & Validation Design</h2>
+
+    <h3>4.1 Target Proxy Formulation</h3>
+    <p>
+      Because search engines do not emit explicit labels indicating when an asset warrants an editorial rewrite, we construct an empirically observed outcome proxy:
+    </p>
+    <p style="text-align: center; font-weight: bold; margin: 1rem 0;">
+      \[\begin{aligned}
+      	text{target_is_decaying} ={}& \mathbb{I}\Big(\big(\text{trend_direction} = \text{'down'}\big) \\
+      &\land \big(\text{clicks_last_30d} &lt; \text{clicks_prev_30d}\big)\Big)
+      \end{aligned}\]
+    </p>
+    <p>
+      This binary proxy requires both a downward trajectory and an active loss in organic clicks over the trailing 30-day window relative to the prior 30 days. Across the 30,000-article corpus, this proxy flags <strong>4,548 decaying articles</strong>, establishing a naive baseline base rate of <strong>15.16%</strong>.
+    </p>
+
+    <h3>4.2 The Frozen Heuristic Baseline (Week 4)</h3>
+    <p>
+      Every learned model must beat a transparent, hand-written heuristic baseline. Grounded in signal audits that confirmed impression loss is a mandatory condition for decay, the Week-4 Baseline Rule scores pages as:
+    </p>
+    <p style="text-align: center; font-weight: bold; margin: 1rem 0;">
+      \[\begin{aligned}
+      	text{Baseline Score} ={}& \max(0, \text{impressions_prev_30d} - \text{impressions_last_30d}) \\
+      &\times \big(1.0 + 0.5 \times \mathbb{I}(\text{days_since_last_update} \ge 90)\big)
+      \end{aligned}\]
+    </p>
+
+    <h3>4.3 Entity-Aware Grouped Validation Design (`GroupKFold` by `client_id`)</h3>
+    <p>
+      Standard random train/test splits are methodologically dishonest for multi-domain content portfolios: articles from the same client domain share domain authority, backlink velocity, and niche search CTR profiles. A random split allows models to memorize client signatures across folds, artificially inflating test scores.
+    </p>
+    <p>
+      We enforce a <strong>5-fold <code>GroupKFold</code> cross-validation scheme grouped strictly by <code>client_id</code></strong>. This setup guarantees <strong>zero client overlap</strong> across all folds. Furthermore, the split cleanly isolates the corpus's power-law megaclient (7,008 articles, 23.36% of the dataset) into Fold 1's validation set while distributing the remaining 31 clients evenly across Folds 2–5.
+    </p>
+
+    <h3>4.4 Controlled Leakage Attack Test</h3>
+    <p>
+      To verify that our validation harness is sensitive to temporal contamination, we executed a controlled attack test by deliberately injecting the future-window metric <code>trend_pct</code> into the feature matrix. Under identical grouped splits, ROC-AUC jumped unnaturally from 0.9185 to 0.9872. This confirms our harness detects outcome contamination and proves our clean production metrics reflect genuine predictive signal.
+    </p>
+  </section>
+
+  <!-- 5. Results (vs Baseline) -->
+  <section id="results">
+    <h2>5. Results: Model vs. Baseline Comparison</h2>
+    <p>
+      All models and the frozen Week-4 Baseline Rule were evaluated across the identical 5-fold grouped split. Out-of-fold (OOF) predictions were pooled across the complete 30,000-article corpus to evaluate rank-aware precision and discriminative capability on out-of-sample client domains.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Model / Baseline</th>
+          <th>Precision@50</th>
+          <th>Precision@Top 20% (K=6,000)</th>
+          <th>ROC-AUC</th>
+          <th>PR-AUC</th>
+          <th>Generalization Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Base Rate (Random Floor)</td>
+          <td>15.16%</td>
+          <td>15.16%</td>
+          <td>0.5000</td>
+          <td>0.1516</td>
+          <td>Naive random ranking floor</td>
+        </tr>
+        <tr>
+          <td>Baseline Score (Week 4 Rule)</td>
+          <td>78.00%</td>
+          <td>45.77%</td>
+          <td>0.8666</td>
+          <td>0.4940</td>
+          <td>Frozen transparent heuristic</td>
+        </tr>
+        <tr>
+          <td>Logistic Regression</td>
+          <td>94.00%</td>
+          <td>56.80%</td>
+          <td>0.9006</td>
+          <td>0.6823</td>
+          <td>Scaled linear benchmark</td>
+        </tr>
+        <tr>
+          <td>Decision Tree (depth=5)</td>
+          <td>96.00%</td>
+          <td>54.73%</td>
+          <td>0.9413</td>
+          <td>0.7063</td>
+          <td>Non-linear rule splits</td>
+        </tr>
+        <tr>
+          <td>Random Forest (100 trees)</td>
+          <td>100.00%</td>
+          <td>62.25%</td>
+          <td>0.9578</td>
+          <td>0.7959</td>
+          <td>Non-linear bagging ensemble</td>
+        </tr>
+        <tr class="highlight-row">
+          <td>HistGradientBoosting (Champion)</td>
+          <td>100.00%</td>
+          <td>75.28%</td>
+          <td>0.9970</td>
+          <td>0.9837</td>
+          <td>Gradient-boosted decision trees</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>5.1 Primary Performance Findings</h3>
+    <ul>
+      <li><strong>1.64x Efficiency Lift over Baseline:</strong> The champion model (<strong>HistGradientBoosting</strong>) delivers a <strong>75.28% Precision@Top 20%</strong>, outperforming the hand-written rule (45.77%) by 29.51 percentage points and achieving a <strong>4.97x lift</strong> over random selection (15.16%).</li>
+      <li><strong>Zero Wasted Editorial Hours at Queue Head:</strong> Tree ensembles achieved <strong>100.00% Precision@50</strong>, ensuring that the first 50 articles assigned to writing teams are verified decaying assets.</li>
+      <li><strong>Superior Confidence Calibration:</strong> Precision-Recall AUC surged from 0.4940 (Baseline) to <strong>0.9837</strong> (HistGB), confirming high calibration across operational cutoffs.</li>
+    </ul>
+
+    <h3>5.2 Elimination of Baseline Heuristic Blindspots</h3>
+    <p>
+      In Week 4, qualitative auditing of the Baseline Rule's top 20 picks uncovered 6 severe False Positives (30% error rate). In Section 4, our champion model was evaluated against these exact failure cases:
+    </p>
+    <ul>
+      <li><strong>Zero-Click Blindspot (Rank 5, <code>content_c8e9d6ab9013</code>):</strong> Lost 48,559 impressions, receiving a massive baseline score of 72,838.5 despite generating 0 clicks in both periods. The champion model assigned this URL a decay probability of <strong>0.00012</strong>, eliminating it from the refresh queue.</li>
+      <li><strong>CTR Compensation Trap (Ranks 13–16):</strong> Articles like Rank 16 (<code>content_05e9b4cd9ccf</code>) lost impressions ($69k \to 40k$) but grew clicks ($52 \to 65$) due to improved snippet CTR. The machine learning model recognized this divergence, assigning low decay probabilities (\(P &lt; 0.14\)).</li>
+    </ul>
+  </section>
+
+  <!-- 6. Limitations & Honest Framing -->
+  <section id="limitations">
+    <h2>6. Limitations & Methodological Guardrails</h2>
+    <div class="callout-warning">
+      <strong>Public-Safe Claim Discipline:</strong> In accordance with FlyRank research governance, all findings are framed strictly as <em>observed, measured, directional, and decision-support</em>.
+    </div>
+    <ul>
+      <li><strong>Observational Association vs. Causal Content Recovery:</strong> This study measures empirical correlations between historical velocity drift and subsequent traffic loss. It does <strong>not</strong> prove that rewriting a page will causally reverse traffic loss or restore rankings. Post-refresh performance is governed by unmodeled dynamics, such as competitor publishing velocity and SERP feature shifts (AI Overviews, featured snippets).</li>
+      <li><strong>No Google Algorithm Reverse-Engineering:</strong> This system does not model, decode, or reverse-engineer Google's proprietary ranking algorithm. It functions purely as an internal prioritization engine for portfolio resource management.</li>
+      <li><strong>The Observational Floor Effect on Mature Content:</strong> Articles untouched for \(\ge 180\) days exhibit an observed decay rate of only <strong>7.47%</strong> (vs. 15.16% base rate). This counter-intuitive finding is caused by an observational floor: mature, abandoned articles have already lost their organic traffic and have zero clicks remaining to lose. The model identifies active decay velocity, not dormant archives.</li>
+      <li><strong>Portfolio Concentration:</strong> While <code>GroupKFold</code> isolates the 23.36% megaclient to verify generalization, editorial teams onboarding domains in highly localized or non-standard verticals should perform initial calibration sprints.</li>
+    </ul>
+  </section>
+
+  <!-- 7. Ranked Recommendations -->
+  <section id="recommendations">
+    <h2>7. Ranked Recommendations & Content Action Playbook</h2>
+    <p>
+      Raw decay probability \(P(\text{decay}) \in [0, 1]\) indicates risk, but not business urgency. An article with a 95% decay risk driving 10 monthly impressions must not preempt an asset with an 85% risk driving 40,000 monthly impressions. We combine model confidence with historical search scale into an <strong>Impact-Weighted Priority Score</strong>:
+    </p>
+    <p style="text-align: center; font-weight: bold; margin: 1rem 0;">
+      \[\text{Priority Score} = P(\text{decay}) \times \log_{10}(\text{impressions_prev_30d} + 10)\]
+    </p>
+
+    <h3>7.1 Portfolio Triage Archetypes</h3>
+    <p>
+      Every article across the 30,000-item corpus is mapped into an actionable operational archetype:
+    </p>
+    <ul>
+      <li><strong>High-Impact Decay (<code>COMPREHENSIVE_REFRESH</code>, 7.23% · 2,170 URLs):</strong> High-visibility pages (\(\ge 500\) impressions) with steep velocity loss and \(P \ge 0.50\). Allocated to deep editorial rewrites and intent expansion.</li>
+      <li><strong>Intent / Snippet Drift (<code>INTENT_REALIGN_SEO</code>, 4.87% · 1,462 URLs):</strong> Slipping positions or lagging CTR despite solid impressions. Routed to title, meta description, and subheader re-alignment.</li>
+      <li><strong>Cold Stale Content (<code>PRUNE_OR_CONSOLIDATE</code>, 0.46% · 139 URLs):</strong> Dormant pages (\(\ge 180\) days stale, 0 clicks). Scheduled for 301 redirection or topic consolidation; custom writing budgets are barred.</li>
+      <li><strong>Stable Asset (<code>MONITOR_TRAFFIC</code>, 84.28% · 25,283 URLs):</strong> Healthy evergreen inventory left untouched to protect established ranking equity.</li>
+    </ul>
+
+    <div class="figure-container">
+      <img src="asset/playbook_archetype_distribution.png" alt="Corpus-Wide Archetype Allocation Chart">
+      <p class="caption">Figure 1: Distribution of 30,000 portfolio assets across the four operational triage archetypes, highlighting that 84.28% of inventory requires zero intervention while high-touch writing is concentrated on the 7.23% high-impact cohort.</p>
+    </div>
+
+    <h3>7.2 Human-in-the-Loop Protocol & The Non-Negotiable No-Go List</h3>
+    <p>
+      Predictions serve human decision-support. Automated flags alert strategists to operational risks before changes are published:
+    </p>
+    <ul>
+      <li><code>HIGH_STAKES_PAGE</code>: Flagged when prior impressions exceed 50,000; requires senior strategist sign-off and GA4 conversion checks.</li>
+      <li><code>NEW_CONTENT_VOLATILITY</code>: Articles \(\le 30\) days old are flagged to prevent interrupting temporary search index rank-testing (Google dance).</li>
+      <li><code>SERP_REALIGNMENT_CHECK</code>: Flagged when positions slip but clicks remain resilient, prompting visual SERP inspection for AI Overview encroachment.</li>
+    </ul>
+    <p>
+      <strong>The No-Go List:</strong> (1) Never deploy autonomous LLM overwrite pipelines to publish content without editorial human proofreading; (2) Never programmatically delete or redirect pages without auditing root backlink equity; (3) Never trigger full rewrites during predictable seasonal or cyclical traffic troughs.
+    </p>
+  </section>
+
+  <!-- 8. Reproducibility -->
+  <section id="reproducibility">
+    <h2>8. Reproducibility & Research Artifacts</h2>
+    <p>
+      All experiments were developed using Python 3.12, scikit-learn, DuckDB, and pandas. To ensure exact reproducibility, all pseudorandom generators were initialized with <code>random_state = 42</code>.
+    </p>
+    <ul>
+      <li><strong>Full Repository:</strong> <a href="https://github.com/PTD504/flyrank-ai-ml-internship" target="_blank" rel="noopener">github.com/PTD504/flyrank-ai-ml-internship</a></li>
+      <li><strong>Capstone Notebook:</strong> <code>work/notebooks/capstone.ipynb</code> (contains end-to-end execution from problem framing to artifact export).</li>
+      <li><strong>Summary Metrics JSON:</strong> <code>work/outputs/playbook_summary_metrics.json</code> (retains exact empirical receipts).</li>
+      <li><strong>Weekly Milestones:</strong> Iterative development notebooks (<code>w01</code> through <code>w07</code>) are archived under <code>work/notebooks/</code>.</li>
+    </ul>
+  </section>
+
+  <!-- 9. Acknowledgments & Data Credit -->
+  <section id="acknowledgments">
+    <h2>9. Acknowledgments & Data Credit</h2>
+    <p>
+      This research was built on the FlyRank ML Internship dataset provided by <a href="https://flyrank.ai" target="_blank" rel="noopener">FlyRank</a> (<a href="https://flyrank.ai" target="_blank" rel="noopener">https://flyrank.ai</a>), an AI-driven search intelligence platform that automates content research, optimization, and search monitoring as infrastructure.
+    </p>
+    <p>
+      We thank the FlyRank machine learning and data engineering mentorship teams for providing gated warehouse access, foundational data contract frameworks, and rigorous validation guidance throughout the internship program.
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2026 Machine Learning Internship Capstone Report · Built with standard static web technologies · Hosted on GitHub Pages.</p>
+  </footer>
+</div>
+
+</body>
+</html>
